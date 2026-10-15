@@ -379,6 +379,17 @@
       ['유광민','https://kangmin350-hub.github.io/lookatmeeen_portfolio/'],
       ['천지윤','https://chunji1004.github.io/ChunJiYun/'],
       ['양윤정','https://game159676-afk.github.io/yunjeong/']
+    ]},
+    {title:'광고영상 프로젝트', period:'', people:[
+      ['정희정','https://rms-creat.github.io/heejeong__portfolio/'],
+      ['이주은','https://jueunlee729.github.io/jueunlee8745/'],
+      ['이미영','https://honeypop0613.github.io/leemiyoung/'],
+      ['황인오','https://inoy-sys.github.io/INO-Portfolio/#firstPage'],
+      ['곽슬기','https://rhf40429.github.io/seulgikwak0405/']
+    ]},
+    {title:'프로젝트', period:'', project:true, people:[
+      ['아덴블랑제리 반응형페이지','https://aden-boulangerie.github.io/'],
+      ['바다축제 반응형페이지','https://jueunlee729.github.io/busan_sea_festival_web/']
     ]}
   ];
 
@@ -404,13 +415,14 @@
 
   GROUPS.forEach(function(g, gi){
     g.id = 'g-' + gi + '-' + slug(g.title);
+    if(g.project) return;
     totalPeople += g.people.length;
     g.people.forEach(function(p){ if(p[1]) totalLinked++; });
   });
 
   document.getElementById('statTotal').textContent = totalPeople + '명';
   document.getElementById('statLinked').textContent = totalLinked + '개';
-  document.getElementById('statGroups').textContent = GROUPS.length + '개';
+  document.getElementById('statGroups').textContent = GROUPS.filter(function(g){return !g.project;}).length + '개';
 
   jumpEl.innerHTML = GROUPS.map(function(g){
     return '<a href="#'+g.id+'">'+g.title+'</a>';
@@ -438,7 +450,7 @@
   groupsEl.innerHTML = GROUPS.map(function(g){
     return '<div class="group" id="'+g.id+'">'+
       '<div class="group-head"><h2>'+g.title+(g.period?'<span class="period">'+g.period+'</span>':'')+'</h2>'+
-      '<span class="count mono">'+g.people.length+'명</span></div>'+
+      '<span class="count mono">'+g.people.length+(g.project?'개':'명')+'</span></div>'+
       '<div class="people-grid">'+g.people.map(personRow).join('')+'</div>'+
     '</div>';
   }).join('');
